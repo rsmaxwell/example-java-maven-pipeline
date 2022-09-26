@@ -15,7 +15,7 @@ pipeline {
               $class: 'GitSCM', 
               branches: [[name: '*/main']], 
               extensions: [], 
-              userRemoteConfigs: [[url: 'https://github.com/rsmaxwell/example-go']]
+              userRemoteConfigs: [[url: 'https://github.com/rsmaxwell/example-java']]
             ])
             sh('./scripts/prepare.sh')
           }
