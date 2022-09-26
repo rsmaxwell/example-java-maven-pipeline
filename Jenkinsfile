@@ -6,7 +6,7 @@ pipeline {
   }
   stages {
 
-    stage('prepare') {
+    stage('build') {
       steps {
         container('maven') {
           dir('project') {
@@ -26,26 +26,10 @@ pipeline {
 
             echo 'packaging the application'
             sh('./scripts/package.sh')
-          }
-        }
-      }
-    }
 
-    stage('test') {
-      steps {
-        container('tools') {
-          dir('project') {
             echo 'testing the application'
             sh('./scripts/test.sh')
-          }
-        }
-      }
-    }
 
-    stage('deploy') {
-      steps {
-        container('maven') {
-          dir('project') {
             echo 'deploying the application'
             sh('./scripts/deploy.sh')
           }
