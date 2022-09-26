@@ -8,26 +8,20 @@ pipeline {
 
     stage('prepare') {
       steps {
-        container('tools') {
+        container('maven') {
           dir('project') {
-            echo 'preparing the application'
+            echo 'check out the project'
             checkout([
               $class: 'GitSCM', 
               branches: [[name: '*/main']], 
               extensions: [], 
               userRemoteConfigs: [[url: 'https://github.com/rsmaxwell/example-java']]
             ])
-            sh('./scripts/prepare.sh')
-          }
-        }
-      }
-    }
 
-    stage('build') {
-      steps {
-        container('golang') {
-          dir('project') {
-            echo 'building the application'
+            echo 'prepare the application'
+            sh('./scripts/prepare.sh')
+
+            echo 'build the application'
             sh('./scripts/build.sh')
           }
         }
@@ -45,21 +39,13 @@ pipeline {
       }
     }
 
-    stage('package') {
-      steps {
-        container('tools') {
-          dir('project') {
-            echo 'packaging the application'
-            sh('./scripts/package.sh')
-          }
-        }
-      }
-    }
-
     stage('deploy') {
       steps {
         container('maven') {
           dir('project') {
+            echo 'packaging the application'
+            sh('./scripts/package.sh')
+
             echo 'deploying the application'
             sh('./scripts/deploy.sh')
           }
