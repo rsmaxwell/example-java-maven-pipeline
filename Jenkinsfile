@@ -6,21 +6,26 @@ pipeline {
   }
   stages {
 
-    stage('build') {
+    stage('prepare') {
       steps {
-        container('maven') {
+        container('tools') {
           dir('project') {
-            echo 'check out the project'
+            echo 'preparing the application'
             checkout([
               $class: 'GitSCM', 
               branches: [[name: '*/main']], 
               extensions: [], 
               userRemoteConfigs: [[url: 'https://github.com/rsmaxwell/example-java']]
             ])
-
-            echo 'prepare the application'
             sh('./scripts/prepare.sh')
+          }
+        }
+      }
+    }
 
+    stage('build') {
+      steps {
+        container('maven') {
             echo 'build the application'
             sh('./scripts/build.sh')
 
