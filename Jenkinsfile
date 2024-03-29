@@ -29,11 +29,11 @@ pipeline {
             echo 'build the application'
             sh('./scripts/build.sh')
 
-            echo 'packaging the application'
-            sh('./scripts/package.sh')
-
             echo 'testing the application'
             sh('./scripts/test.sh')
+
+            echo 'packaging the application'
+            sh('./scripts/package.sh')
 
             echo 'deploying the application'
             sh('./scripts/deploy.sh')
