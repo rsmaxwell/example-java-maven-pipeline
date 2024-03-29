@@ -1,3 +1,2 @@
 # example-java-pipeline
 
-x
