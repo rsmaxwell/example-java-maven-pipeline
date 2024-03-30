@@ -23,7 +23,7 @@ pipeline {
       }
     }
 
-    stage('build') {
+    stage('build/test/package/deploy') {
       steps {
         container('maven') {
           dir('project') {
