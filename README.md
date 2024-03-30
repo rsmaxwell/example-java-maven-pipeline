@@ -1,1 +1,1 @@
-# example-java-pipeline
+# example-maven-pipeline
